@@ -1,1 +1,4 @@
-# vim-config-compact
+### Requirements
+
+- fzf
+- ripgrep
