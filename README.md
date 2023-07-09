@@ -2,3 +2,4 @@
 
 - fzf
 - ripgrep
+- git
