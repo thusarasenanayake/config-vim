@@ -87,7 +87,9 @@ set mouse=a
 set title 
 set titlestring=vim:%<%F%=%l/%L-%P
 set splitbelow
-set splitright
+set encoding=utf-8  " The encoding displayed.
+set fileencoding=utf-8  " The encoding written to file.set splitright
+
 let mapleader=' '
 colorscheme slate
 
@@ -128,25 +130,43 @@ let vimsyn_folding='af'       " Vim script
 
 " reference: https://dev.to/pbnj/interactive-fuzzy-finding-in-vim-without-plugins-4kkj
 
-function! FZF() abort
-	let l:tempname = tempname()
-
-	if system('git rev-parse --is-inside-work-tree') =~ '^true$'
-		execute 'silent !git ls-files --cached --other --exclude-standard | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
-	else
+ function! FZF() abort
+ 	let l:tempname = tempname()
+ 
+ 	if system('git rev-parse --is-inside-work-tree') =~ '^true$'
+ 		execute 'silent !git ls-files --cached --other --exclude-standard | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+ 	else
 		" fzf | awk '{ print $1":1:0" }' > file
-		execute 'silent !find . -type f -print | cut -d/ -f2- | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+ 		execute 'silent !find . -type f -print | cut -d/ -f2- | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
 		" execute 'silent !fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
 		" execute 'silent !git grep . | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
-	endif
-
-	try
-		execute 'cfile ' . l:tempname
-		redraw!
-	finally
-		call delete(l:tempname)
-	endtry
-endfunction
+ 	endif
+ 
+ 	try
+ 		  execute 'cfile ' . l:tempname
+ 		" execute 'vsplit ' . l:tempname
+ 		redraw!
+ 	finally
+ 		call delete(l:tempname)
+ 	endtry
+ endfunction
+" function! FZF() abort
+"   let l:tempname = tempname()
+" 
+"   if system('git rev-parse --is-inside-work-tree') =~ '^true$'
+"     execute 'silent !git ls-files --cached --other --exclude-standard | awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+"   else
+"     let l:current_dir = expand('%:p:h')
+"     execute 'silent !find ' . l:current_dir . ' -type f -print | cut -d/ -f2- | awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
+"   endif
+" 
+"   try
+"     execute 'botright vs ' . l:tempname  " Open results in a new buffer
+"     redraw!
+"   finally
+"     call delete(l:tempname)
+"   endtry
+" endfunction
 
 " :Files
 command! -nargs=* Files call FZF()
@@ -186,9 +206,14 @@ nnoremap <leader>kk :bprevious<CR>
 
 " Close current buffer
 nnoremap <leader>c :bd<CR>
-nnoremap <leader>qq :bd!<CR>
-
 nnoremap <leader>s :w<CR>
+nnoremap <leader>qq :qall<CR>
+nnoremap <leader>qb :bd!<CR>
+
+inoremap <C-i> <C-H>
+
+nnoremap <S-H> 0
+nnoremap <S-L> $
 
 " Split window horizontally and open a new buffer
 nnoremap <leader>h :split<CR>:enew<CR>
@@ -228,6 +253,14 @@ nnoremap N Nzz
 " Yank from cursor to the end of line.
 nnoremap Y y$
 
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
+
+" Toggle wrap setting
+nnoremap <leader>w :set wrap!<CR>
+
 " }}}
 
 " {{{ --------------- status line --------------- 
@@ -252,12 +285,28 @@ set laststatus=2
 " {{{ --------------- netrw --------------- 
 
 " Open the file explorer
-nnoremap <leader>e :Explore<CR>
+ nnoremap <Leader>e :Lexplore<CR>  
 
-" }}}
+" nnoremap <Leader>e :call ToggleExplorer()<CR>
+" let g:explorer_opened = 0
+"function! ToggleExplorer()
+"	if g:explorer_opened == 0
+"		Lexplore
+"		let g:explorer_opened = 1
+"	else
+"		let g:explorer_opened = 0
+"		" silent! wincmd q
+"		"silent! execute 'bd' 
+"	endif
+"endfunction
 
-" {{{ --------------- fuzzy finding --------------- 
+" Open the file explorer as a sidebar by default
+let g:netrw_winsize = 25
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_banner = 0
 
-
+let g:netrw_sort_by = 'time'
 
 " }}}
