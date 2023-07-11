@@ -1,1 +1,1 @@
-/home/thusara/.vimrc
+/home/vimtest/.vimrc
