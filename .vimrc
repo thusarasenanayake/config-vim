@@ -1,4 +1,3 @@
-
 " {{{ --------------- basics --------------- 
 "
 " reference: https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/
@@ -257,6 +256,7 @@ nnoremap <leader>w :set wrap!<CR>
 cnoremap jj <esc> 
 
 nnoremap <Leader>r :%s/<C-r><C-w>/
+nnoremap x "_x
 
 " }}}
 
