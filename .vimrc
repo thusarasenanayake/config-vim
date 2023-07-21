@@ -90,7 +90,7 @@ set splitbelow
 set encoding=utf-8  " The encoding displayed.
 set fileencoding=utf-8  " The encoding written to file.set splitright
 set timeoutlen=1000
-
+set termguicolors
 
 let mapleader=' '
 colorscheme slate 
@@ -333,7 +333,10 @@ nnoremap <Leader>tt :tabnew<CR>
 
 " }}}
 
-" {{{
+" {{{ --------------- theming --------------- 
+
+colorscheme toast
+set background=dark
 
 " source $HOME/colorscheme.vim
 
