@@ -132,9 +132,9 @@ let vimsyn_folding='af'       " Vim script
 
 " reference: https://dev.to/pbnj/interactive-fuzzy-finding-in-vim-without-plugins-4kkj
 
- function! FZF() abort
- 	let l:tempname = tempname()
- 
+function! FZF() abort
+	let l:tempname = tempname()
+
 	if system('git rev-parse --is-inside-work-tree') =~ 'true'
 		"if isdirectory(".git")
 		execute 'silent !git ls-files --cached --other --exclude-standard | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
@@ -143,15 +143,15 @@ let vimsyn_folding='af'       " Vim script
 		execute 'silent !find . -type f -print | cut -d/ -f2- | fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
 		" execute 'silent !fzf --multi ' . '| awk ''{ print $1":1:0" }'' > ' . fnameescape(l:tempname)
 	endif
- 
- 	try
- 		  execute 'cfile ' . l:tempname
- 		" execute 'vsplit ' . l:tempname
- 		redraw!
- 	finally
- 		call delete(l:tempname)
- 	endtry
- endfunction
+
+	try
+		execute 'cfile ' . l:tempname
+		" execute 'vsplit ' . l:tempname
+		redraw!
+	finally
+		call delete(l:tempname)
+	endtry
+endfunction
 
 
 " :Files
@@ -258,6 +258,17 @@ cnoremap jj <esc>
 nnoremap <Leader>r :%s/<C-r><C-w>/
 nnoremap x "_x
 
+function! IndentAll()
+	"let save_cursor = getpos(".")
+	normal m1ggVG='1
+	"normal ggVG
+	"call setpos('.', save_cursor)
+
+endfunction
+
+nnoremap <leader>aa ggVG 
+nnoremap <leader>ii :call IndentAll()<CR> 
+
 " }}}
 
 " {{{ --------------- status line --------------- 
@@ -282,7 +293,7 @@ set laststatus=2
 " {{{ --------------- netrw --------------- 
 
 " Open the file explorer
- nnoremap <Leader>e :Lexplore<CR>  
+nnoremap <Leader>e :Lexplore<CR>  
 
 " nnoremap <Leader>e :call ToggleExplorer()<CR>
 " let g:explorer_opened = 0
