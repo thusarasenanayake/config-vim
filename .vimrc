@@ -28,10 +28,10 @@ set relativenumber
 " set cursorcolumn
 
 " Set shift width to 4 spaces.
-set shiftwidth=4
+set shiftwidth=2
 
 " Set tab width to 4 columns.
-set tabstop=4
+set tabstop=2
 
 " Use space characters instead of tabs.
 " set expandtab
@@ -56,6 +56,8 @@ set ignorecase
 " Override the ignorecase option if searching for capital letters.
 " This will allow you to search specifically for capital letters.
 set smartcase
+
+set smartindent
 
 " Show partial command you type in the last line of the screen.
 set showcmd
@@ -91,6 +93,7 @@ set encoding=utf-8  " The encoding displayed.
 set fileencoding=utf-8  " The encoding written to file.set splitright
 set timeoutlen=1000
 set termguicolors
+set clipboard^=unnamed,unnamedplus
 
 let mapleader=' '
 colorscheme slate 
@@ -268,6 +271,15 @@ endfunction
 
 nnoremap <leader>aa ggVG 
 nnoremap <leader>ii :call IndentAll()<CR> 
+
+" }}}
+
+" {{{ --------------- clipboard --------------- 
+
+vnoremap <C-c> "+y
+vnoremap <C-x> "+d
+"nnoremap <C-v> "+p
+
 
 " }}}
 
