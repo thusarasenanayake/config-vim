@@ -364,3 +364,20 @@ set background=dark
 " source $HOME/colorscheme.vim
 
 " }}}
+
+" {{{ --------------- spell checking --------------- 
+
+" ]s  [s z=
+" set spell spelllang=en
+
+autocmd FileType txt setlocal spell spelllang=en
+
+" }}}
+
+" {{{ --------------- suggestions --------------- 
+
+set wildmenu
+set wildmode=longest,list
+set completeopt=menuone,noselect
+
+" }}}
