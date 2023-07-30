@@ -93,7 +93,6 @@ set encoding=utf-8  " The encoding displayed.
 set fileencoding=utf-8  " The encoding written to file.set splitright
 set timeoutlen=1000
 set termguicolors
-set clipboard^=unnamed,unnamedplus
 
 let mapleader=' '
 colorscheme slate 
@@ -102,23 +101,13 @@ colorscheme slate
 
 " {{{ --------------- folding  --------------- 
 
-augroup filetype_html_php 
-	autocmd!
-	autocmd FileType html,php setlocal foldmethod=indent
-augroup END
-
-augroup filetype_vim
-	autocmd!
-	autocmd FileType vim setlocal foldmethod=marker
-augroup END
-
 set foldmethod=syntax
 set foldnestmax=2
 set nofoldenable
 " set foldclose=all
 " set foldlevelstart=1
 
-let javaScript_fold=1         " JavaScript
+" let javaScript_fold=1         " JavaScript
 " let perl_fold=1               " Perl
 " let php_folding=1             " PHP
 " let r_syntax_folding=1        " R
@@ -128,6 +117,15 @@ let vimsyn_folding='af'       " Vim script
 " let html_folding=1      
 " let xml_syntax_folding=1      " XML
 
+augroup filetype_html_php 
+	autocmd!
+	autocmd FileType html,php,js,jsx setlocal foldmethod=indent
+augroup END
+
+augroup filetype_vim
+	autocmd!
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
 
 " }}}
 
@@ -276,6 +274,8 @@ nnoremap <leader>ii :call IndentAll()<CR>
 
 " {{{ --------------- clipboard --------------- 
 
+" set clipboard^=unnamed,unnamedplus
+
 vnoremap <C-c> "+y
 vnoremap <C-x> "+d
 "nnoremap <C-v> "+p
@@ -359,9 +359,24 @@ nnoremap <Leader>tt :tabnew<CR>
 " {{{ --------------- theming --------------- 
 
 colorscheme toast
-set background=dark
+" colorscheme ron 
+" set background=dark
 
 " source $HOME/colorscheme.vim
+
+" }}}
+
+" {{{ --------------- for kitty colors --------------- 
+
+if has('gui_running') || has('nvim') 
+	hi Normal 		guifg=#f6f3e8 guibg=#242424 
+else
+	" Set the terminal default background and foreground colors, thereby
+	" improving performance by not needing to set these colors on empty cells.
+	hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+	let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
+	let &t_te = &t_te . "\033]110\007\033]111\007"
+endif
 
 " }}}
 
@@ -381,3 +396,8 @@ set wildmode=longest,list
 set completeopt=menuone,noselect
 
 " }}}
+
+
+
+
+
