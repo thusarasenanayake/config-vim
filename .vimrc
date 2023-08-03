@@ -4,7 +4,7 @@
 
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
-
+"
 " Enable type file detection. Vim will be able to try to detect the type of file in use.
 filetype on
 
@@ -193,6 +193,8 @@ nnoremap <leader>fs :Rg<cr>
 
 " {{{ --------------- mappings --------------- 
 
+
+
 " Switch between buffers
 nnoremap <leader>jj :bnext<CR>
 nnoremap <leader>kk :bprevious<CR>
@@ -246,10 +248,24 @@ nnoremap N Nzz
 " Yank from cursor to the end of line.
 nnoremap Y y$
 
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
+" inoremap <C-h> <Left>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
+" inoremap <C-l> <Right>
+
+execute "set <M-h>=\eh"
+execute "set <M-j>=\ej"
+execute "set <M-k>=\ek"
+execute "set <M-l>=\el"
+
+inoremap <M-h> <Left>
+inoremap <M-j> <Down>
+inoremap <M-k> <Up>
+inoremap <M-l> <Right>
+
+inoremap <C-k> <esc>
+nnoremap <C-j> :m +1<CR> 
+nnoremap <C-k> :m -2<CR> 
 
 " Toggle wrap setting
 nnoremap <leader>w :set wrap!<CR>
@@ -278,8 +294,11 @@ nnoremap <leader>ii :call IndentAll()<CR>
 
 vnoremap <C-c> "+y
 vnoremap <C-x> "+d
+nnoremap <C-c> "+Y
 "nnoremap <C-v> "+p
 
+nnoremap <C-n> 7jzz 
+nnoremap <C-i> 7kzz 
 
 " }}}
 
@@ -368,15 +387,19 @@ colorscheme toast
 
 " {{{ --------------- for kitty colors --------------- 
 
-if has('gui_running') || has('nvim') 
-	hi Normal 		guifg=#f6f3e8 guibg=#242424 
-else
-	" Set the terminal default background and foreground colors, thereby
-	" improving performance by not needing to set these colors on empty cells.
-	hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
-	let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
-	let &t_te = &t_te . "\033]110\007\033]111\007"
-endif
+" if has('gui_running') || has('nvim') 
+" 	hi Normal 		guifg=#f6f3e8 guibg=#242424 
+" else
+" 	" Set the terminal default background and foreground colors, thereby
+" 	" improving performance by not needing to set these colors on empty cells.
+" 	hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+" 	let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
+" 	let &t_te = &t_te . "\033]110\007\033]111\007"
+" endif
+
+if &term == 'xterm-kitty'
+	let &t_ut=''
+endif"
 
 " }}}
 
@@ -396,6 +419,19 @@ set wildmode=longest,list
 set completeopt=menuone,noselect
 
 " }}}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
