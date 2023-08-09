@@ -1,4 +1,4 @@
-" {{{ --------------- basics --------------- 
+" {{{ ---------------  --------------- 
 "
 " reference: https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/
 
@@ -283,6 +283,10 @@ function! IndentAll()
 
 endfunction
 
+" indentation on vmode
+vnoremap < <gv
+vnoremap > >gv
+
 nnoremap <leader>aa ggVG 
 nnoremap <leader>ii :call IndentAll()<CR> 
 
@@ -293,8 +297,8 @@ nnoremap <leader>ii :call IndentAll()<CR>
 " set clipboard^=unnamed,unnamedplus
 
 vnoremap <C-c> "+y
-vnoremap <C-x> "+d
 nnoremap <C-c> "+Y
+vnoremap <C-x> "+d
 "nnoremap <C-v> "+p
 
 nnoremap <C-n> 7jzz 
