@@ -424,21 +424,3 @@ set wildmode=longest,list
 set completeopt=menuone,noselect
 
 " }}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
