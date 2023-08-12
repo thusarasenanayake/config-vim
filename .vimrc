@@ -273,6 +273,7 @@ nnoremap <leader>w :set wrap!<CR>
 cnoremap jj <esc> 
 
 nnoremap <Leader>r :%s/<C-r><C-w>/
+nnoremap X x
 nnoremap x "_x
 
 function! IndentAll()
