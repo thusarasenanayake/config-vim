@@ -201,7 +201,7 @@ nnoremap <leader>kk :bprevious<CR>
 
 " Close current buffer
 nnoremap <leader>c :bd<CR>
-nnoremap <leader>s :w<CR>
+nnoremap <leader>ss :w<CR>
 nnoremap <leader>qq :qall!<CR>
 nnoremap <leader>qb :bd!<CR>
 
